@@ -1,0 +1,75 @@
+        <table>
+            <tbody>
+            <tr>
+               <td>Left Side Column
+                
+                <ul>
+                        <li > Week 0 - INTRO
+                            <ul>
+                                <li>LEARNING OBJECTIVES
+                                    <ul>
+                                        <li>Introduction to the course</li>
+                                        <li>Learn what is Web Development</li>
+                                        <li>Creating a Development Environment</li>
+                                        <li>Creating a Web Application</li>
+                                        <li>Gettin started with the 1st assignment</li>
+                                    </ul>
+                                </li>
+
+                                <li>READINGs
+                                    <ul>
+                                        <li>Full Stack Developer - Chapter 1 - Introduction</li>
+                                        <li>Full Stack Developer - Chapter 2 - Creating User Interfaces with HTML</li>
+                                    </ul>
+                                </li>
+
+                                <li> SLIDES
+                                    <ul>
+                                        <li>Introduction to Web Development Links to an external site</li>
+                                        <li>Creating an HTTP server with Node.js to an external site</li>
+                                        <li>Creating a React Application Links to an external site</li>
+                                    </ul>
+                                </li>
+                            
+                            </ul>
+                        </li>
+
+
+                        <li > Week 0 - INTRO
+                            <ul>
+                                <li>LEARNING OBJECTIVES
+                                    <ul>
+                                        <li>Introduction to the course</li>
+                                        <li>Learn what is Web Development</li>
+                                        <li>Creating a Development Environment</li>
+                                        <li>Creating a Web Application</li>
+                                        <li>Gettin started with the 1st assignment</li>
+                                    </ul>
+                                </li>
+
+                                <li>READING
+                                    <ul>
+                                        <li>Full Stack Developer - Chapter 1 - Introduction</li>
+                                        <li>Full Stack Developer - Chapter 2 - Creating User Interfaces with HTML</li>
+                                    </ul>
+                                </li>
+
+                            
+                            </ul>
+                        </li>
+                    </ul>
+                
+                </td>
+            </tr>
+
+            <td>Right Side Column  
+                <!--Buttons-->
+            <h3>Buttons</h3>
+                    <button type="button">Click me!</button>
+                    <button type="button">Click me!</button>
+
+            </td>
+
+            
+        </tbody>
+    </table>
