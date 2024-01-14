@@ -1,0 +1,105 @@
+<form id="EditAssignment">
+
+    <select>
+        <option>Speed Grader</option>
+    </select>
+    <hr style="width:50%;text-align:left;margin-left:0"/>
+    
+    <label for="assignmentName">Assignment Name</label> 
+    <br/>
+    <br/>
+
+    <input type="text" value="A1 - HTML" id="assignmentName" 
+            placeholder="Assignment Name"/>
+
+    <br/>
+    <br/>
+
+    <textarea cols="30" rows="5" style="align-content:left">This is the Assignment Description</textarea>
+
+    <br/>
+    <br/>
+    
+    <label>Points</label><br/>
+    <input value="100" type="number" min="0" max="100" step="5" />
+
+    <br/>
+    <br/>
+
+    <label for="select-one-assignment"> Assignment Group </label><br/> 
+    <select id="AssignmentGroup">
+    <option selected value="ASSIGNMENTS">ASSIGNMENTS</option>
+    </select>
+
+    <br/>
+    <br/>
+
+    <label for="select-one-displaygrade"> Display Grade as </label><br/> 
+    <select id="DisplayGrade">
+    <option selected value="PERCENTAGE">Percentage</option>
+    </select>
+
+    <br/>
+    <br/>
+
+    <label for="select-one-grade"> Submission Type </label><br/> 
+    <select id="SubmissionType">
+    <option selected value="Online">Online</option>
+    </select>
+
+    <br/>
+    <br/>
+
+
+
+    <label>Online Entry Options</label> <br/>
+    <input type="checkbox">  <label>Text Entry</label> <br/>
+    <input type="checkbox">  <label>Website Url</label> <br/>
+    <input type="checkbox">  <label>Media Recordings</label> <br/>
+    <input type="checkbox">  <label>Student Annotation</label> <br/>
+    <input type="checkbox">  <label>File Uploads</label> <br/>
+    
+
+    <br/>
+    <br/>
+
+    <h3>Assign</h3>
+    <label>Assign To</label><br/>
+    <input type="text" value="Everyone" id="Everyone" 
+    placeholder="Everyone"/>
+
+    <br/>
+    <br/>
+
+    <label>Due</label> <br/>
+    <input type="date" value="2024-01-08" min="2024-01-01" max="2025-09-23"/>
+
+    <br/>
+    <br/>
+
+    <label>Available from</label> <br/>
+    <input type="date" value="2024-01-08" min="2024-01-01" max="2025-09-23"/>
+
+    <br/>
+    <br/>
+    
+    <label>Until</label> <br/>
+    <input type="date"  value="2024-01-08" min="2024-01-01" max="2025-09-23"/>
+
+    <br/>
+    <br/>
+    <button type="button">Cancel</button>
+    <button type="button">Save</button>
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
