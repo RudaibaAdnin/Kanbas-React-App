@@ -11,6 +11,7 @@ function Assignments() {
       {/*<!-- Add buttons and other fields here -->*/}
 
       <div className="row mt-5 ms-1">
+      <h2>Assignments</h2>
         <div className="col-6">
             <input type="text" className="form-control w-20 p-2" placeholder="Search for Assignments"/>
         </div>

@@ -13,6 +13,8 @@ function Grades() {
 
   return (
     <div>
+      <br/>
+      <h2>Grades</h2>
 
       <span className="float-end m-4">
           <button type="button" className="btn btn-light border border-dark m-1"><FaArrowAltCircleRight/> Import</button>

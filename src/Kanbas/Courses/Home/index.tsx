@@ -10,6 +10,9 @@ function Home() {
 
   return (
     <div>
+
+    <br/>
+    <h2>Home</h2>
       <div className="d-flex m-4">
       <div className="flex-fill">
         <ModuleList />

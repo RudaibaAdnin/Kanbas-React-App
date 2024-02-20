@@ -11,7 +11,7 @@ function ModuleList() {
     <>
       {/* <!-- Add buttons here --> */}
         <hr/>
-    
+        <h2>Modules</h2>
         <span className="float-end">
         <button type="button" className="btn btn-light border border-dark m-1"> Collapse All</button>
         <button type="button" className="btn btn-light border border-dark m-1"> View Progress</button>
