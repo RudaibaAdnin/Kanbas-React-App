@@ -1,10 +1,10 @@
-.wd-modules,
+/* .wd-modules,
 .wd-modules * {
   border-radius: 0%;
   border: none;
   margin: 0px;
   padding: 0px;
-}
+} */
 
 .wd-modules {
   margin: 15px;
@@ -16,6 +16,26 @@
   border-left: none !important;
  /* font-size: 13px;*/
 }
+
+.wd-li{
+  background-color: lightgray;
+  border: 1px solid gray !important;
+  border-left: none !important;
+  margin: 0px;
+  padding: 0px;
+}
+
+.wd-li-div{
+  padding: 6px;
+  border-left: 1px solid gray !important;
+}
+.wd-li-ul-li{
+  padding: 8px;
+  border-top: 1px solid gray !important;
+  border-left: 4px solid green;
+}
+
+
 
 .wd-modules > li > div {
   padding: 6px;
@@ -65,3 +85,9 @@
     color: red;
     text-decoration: none;
   }
+
+
+
+  
+
+  

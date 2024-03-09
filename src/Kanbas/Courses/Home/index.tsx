@@ -12,11 +12,9 @@ function Home() {
     <div>
 
     <br/>
-    <h2>Home</h2>
-      <div className="d-flex m-4">
-      <div className="flex-fill">
+    <h5>Home</h5>
+      <div className="d-flex">
         <ModuleList />
-      </div>
       <div className="flex-grow-0 m-2 ms-5 d-none d-lg-block" style={{"width": "250px"}}>
         <h2>Course Status</h2>
         <button type="button" className="btn btn-light border border-dark m-1 ms-4"> Publish</button>

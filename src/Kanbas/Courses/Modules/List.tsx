@@ -1,47 +1,132 @@
-import React, { useState } from "react";
-import "./index.css";
-import { modules } from "../../Database";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaPlus } from "react-icons/fa";
-import { useParams } from "react-router";
+import "./index.css";
+import React, { useState } from "react";
+import { useParams } from "react-router-dom";
+import db from "../../Database";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  addModule,
+  deleteModule,
+  updateModule,
+  setModule,
+} from "./modulesReducer";
+import { LabState} from "../../store";
+
 function ModuleList() {
   const { courseId } = useParams();
-  const modulesList = modules.filter((module) => module.course === courseId);
-  const [selectedModule, setSelectedModule] = useState(modulesList[0]);
-  return (
-    <>
-      {/* <!-- Add buttons here --> */}
-        <hr/>
-        <h2>Modules</h2>
-        <span className="float-end">
-        <button type="button" className="btn btn-light border border-dark m-1"> Collapse All</button>
-        <button type="button" className="btn btn-light border border-dark m-1"> View Progress</button>
-        <select className="btn btn-light border border-dark">
-            <option>Publish All</option>
-            <option>Publish all items and modules</option>
-            <option>Unpublish</option>
-        </select>
-        <button type="button" className="btn btn-danger m-1"><FaPlus/> Module</button>
-        </span>
+  const modules = useSelector((state: LabState) => state.modulesReducer.modules);
+  const module = useSelector((state: LabState) => state.modulesReducer.module);
+  const dispatch = useDispatch();
 
-         <br/>  <br/>  
-        <hr/>
-      <ul className="list-group wd-modules">
-        {modulesList.map((module) => (
-          <li
-            className="list-group-item"
-            onClick={() => setSelectedModule(module)}>
+
+  //** */
+  //const [modules, setModules] = useState(db.modules);
+  // const [module, setModule] = useState({
+  //   _id: "0",
+  //   name: "New Module",
+  //   description: "New Description",
+  //   course: "random"
+  // });
+  // const addModule = (module) => {
+  //   setModules([...modules,{ ...module, _id: new Date().getTime().toString(), course: courseId }]);
+  // };
+
+  // const deleteModule = (moduleId: string) => {
+  //   setModules(modules.filter(
+  //     (module) => module._id !== moduleId));
+  // };
+
+  // const updateModule = () => {
+  //   setModules(
+  //     modules.map((m) => {
+  //       if (m._id === module._id) {
+  //         return module;
+  //       } else {
+  //         return m;
+  //       }
+  //     })
+  //   );
+  // };
+
+
+
+
+  return (
+
+    <>
+
+  <div className="flex-fill">
+      <hr/>
+      <h2>Modules</h2>
+      <span className="float-end">
+      <button type="button" className="btn btn-light border border-dark m-1"> Collapse All</button>
+      <button type="button" className="btn btn-light border border-dark m-1"> View Progress</button>
+      <select className="btn btn-light border border-dark">
+          <option>Publish All</option>
+          <option>Publish all items and modules</option>
+          <option>Unpublish</option>
+      </select>
+      <button type="button" className="btn btn-danger m-1"><FaPlus/> Module</button>
+      </span>
+
+       <br/>  <br/>  
+      <hr/>
+      <div className="col-md-11">
+        <input value={module.name} 
+                className="form-control ms-4 m-2"
+                onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))}/>
+        <textarea value={module.description} 
+                  className="form-control ms-4 m-2"
+                  onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))}/>
+        
+        <button className="btn btn-success float-end m-2"
+                onClick={() => dispatch(addModule({ ...module, course: courseId }))}> 
+                Add 
+        </button>
+        <button className="btn btn-primary float-end m-2"
+                onClick={() => dispatch(updateModule(module))}> 
+                Update 
+        </button>
+
+
+      </div>
+
+      <br/>
+      <br/>
+
+      {modules
+        .filter((module) => module.course === courseId)
+        .map((module, index) => (
+        <ul className="list-group m-4">
+          <li key={index} className="list-group-item wd-li p-2">
             <div>
               <FaEllipsisV className="me-2" />
-              {module.name}
-              <span className="float-end">
+              {module.name} <br/>
+              <small className="text-muted p-2">{module.description}</small>
+            {/* <p>{module._id}</p> */}
+          
+            <span className="float-end">
+
+                <button className="btn btn-warning m-2"
+                  onClick={(event) => {dispatch(setModule(module))}}> 
+                  Edit
+                </button>
+
+                <button className="btn btn-danger m-2"
+                  onClick={() => {dispatch(deleteModule(module._id))}}> 
+                  Delete
+                </button>
+          
                 <FaCheckCircle className="text-success" />
                 <FaPlusCircle className="ms-2" />
                 <FaEllipsisV className="ms-2" />
               </span>
+              
             </div>
-            {selectedModule._id === module._id && (
-              <ul className="list-group">
-                {module.lessons?.map((lesson) => (
+          </li>
+
+          {/* <ul className="list-group">
+                {module.lessons?.map((lesson: lessonType) => (
                   <li className="list-group-item">
                     <FaEllipsisV className="me-2" />
                     {lesson.name}
@@ -51,11 +136,10 @@ function ModuleList() {
                     </span>
                   </li>
                 ))}
-              </ul>
-            )}
-          </li>
-        ))}
-      </ul>
+          </ul>
+           */}
+          </ul>))}
+          </div>
     </>
   );
 }

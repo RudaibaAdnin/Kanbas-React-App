@@ -1,0 +1,103 @@
+.wd-modules,
+.wd-modules * {
+  border-radius: 0%;
+  border: none;
+  margin: 0px;
+  padding: 0px;
+}
+
+.wd-modules {
+  margin: 15px;
+}
+
+.wd-modules > li {
+  background-color: rgb(241, 239, 239);
+  border: 1px solid gray !important;
+  border-left: 2px solid green;
+ /* font-size: 13px;*/
+}
+
+.wd-modules > li > div {
+  padding: 6px;
+  border-left: 1px solid rgb(229, 222, 222) !important;
+}
+
+.wd-modules > li > ul > li {
+  padding: 8px;
+  border-top: 1px solid rgb(227, 223, 223) !important;
+  border-left: 2px solid green;
+ /* font-size: 13px;*/
+  
+}
+
+.wd-modules > li {
+  margin-bottom: 20px;
+}
+
+
+.wd-modules > li > ul > li.wd-item {
+  padding: 8px;
+  padding-left: 20px;
+  border-top: 1px solid gray !important;
+ /* font-size: 13px;*/
+
+}
+
+
+
+.wd-course-status > li {
+    background-color: rgb(236, 233, 233);
+    border: 1px solid gray !important;
+    margin-bottom: 4px;
+    margin-left: 8px;
+    margin-right: 8px;
+  }
+
+
+  .btn-danger.wd-button {
+    background-color: red;
+    color: white;
+    padding: 3px 6px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 3px 6px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+
+  .btn-warning.wd-button {
+    background-color: rgb(248, 166, 67);
+    color: black;
+    padding: 3px 6px;
+    width: 80px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 3px 6px;
+    cursor: pointer;
+    border-radius: 5px;
+  }
+  
+
+  .wd-to-do {
+    background-color: white;
+    list-style: none;
+    padding: 0px;
+    width: 200px;
+    margin: 0px;
+    margin-left: 20px;
+  }
+  .wd-to-do li {
+    padding-left: 2px;
+    margin-bottom: 2px;
+    margin-top: 2px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+  }
+
+  .wd-to-do a {
+    color: red;
+    text-decoration: none;
+  }

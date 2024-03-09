@@ -11,7 +11,7 @@ function CourseNavigation() {
   const course = courses.find((course) => course._id === courseId);
 
   return (
-    
+   
     <ul className="wd-navigation">
       {links.map((link, index) => (
         <li key={index} className={pathname.includes(link) ? "wd-active" : ""}>
@@ -19,6 +19,7 @@ function CourseNavigation() {
         </li>
       ))}
     </ul>
+
   );
 }
 export default CourseNavigation;

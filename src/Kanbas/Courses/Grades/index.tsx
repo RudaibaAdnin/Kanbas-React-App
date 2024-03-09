@@ -12,7 +12,7 @@ function Grades() {
   const course = courses.find((course) => course._id === courseId);
 
   return (
-    <div>
+    <div className="flex-fill">
       <br/>
       <h2>Grades</h2>
 
@@ -38,7 +38,7 @@ function Grades() {
             <table width="100%" className="table table-bordered table-striped">
           <thead>
             <th>Student Name</th>
-            {as.map((assignment) => (<th>{assignment.title}</th>))}
+            {as.map((assignment) => (<th>{assignment.name}</th>))}
           </thead>
 
           <tbody>

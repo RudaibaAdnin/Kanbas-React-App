@@ -10,6 +10,7 @@ function KanbasNavigation() {
   ];
   const { pathname } = useLocation();
   return (
+    <div className="d-none d-md-block">
     <ul className="wd-kanbas-navigation">
       {links.map((link, index) => (
         <li key={index} className={pathname.includes(link.label) ? "wd-active" : ""}>
@@ -17,6 +18,7 @@ function KanbasNavigation() {
         </li>
       ))}
     </ul>
+    </div>
   );
 }
 export default KanbasNavigation;
