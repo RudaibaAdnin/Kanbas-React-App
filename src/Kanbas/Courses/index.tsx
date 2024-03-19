@@ -1,5 +1,7 @@
-//import { courses} from "../../Kanbas/Database";
 import { Navigate, Route, Routes, useParams } from "react-router-dom";
+import { useState, useEffect} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
 import { HiMiniBars3 } from "react-icons/hi2";
 import CourseNavigation from "./Navigation";
 import Modules from "./Modules";
@@ -9,14 +11,30 @@ import AssignmentEditor from "./Assignments/Editor";
 import Grades from "./Grades";
 import { Link, useLocation } from "react-router-dom";
 import "./index.css";
-import db from "../Database";
+//import db from "../Database";
+import { LabState } from "../store";
+
+
 
 function Courses() {
   const links = ["Home", "Modules", "Piazza", "Grades", "Assignments"];
   const { pathname } = useLocation();
   const { courseId } = useParams();
-  const course = db.courses.find((course) => course._id === courseId);
-  
+  //const course = db.courses.find((course) => course._id === courseId);
+  const course = useSelector((state: LabState) => state.coursesReducer.course);
+  // const COURSES_API = "http://localhost:4000/api/courses";
+  // const [course, setCourse] = useState({name: "New Course Name", number: "New Course Number",
+  // startDate: "2023-09-10", endDate: "2023-12-15", _id: new Date().getTime().toString()});
+  // const findCourseById = async (courseId) => {
+  //   const response = await axios.get(`${COURSES_API}/${courseId}`);
+  //   if (response.status!=404) {
+  //     setCourse(response.data); 
+  //   }
+  // };
+  // useEffect(() => {
+  //   findCourseById(courseId);
+  // }, [courseId]);
+
   return (
     <div>
      {/* <h1 className="m-3" style={{ "color": "red", fontSize:20 }}><HiMiniBars3 /> Course {course?.name}  {links.map((link, index) =>(pathname.includes(link) ? " > "+link : ""))}</h1>  */}

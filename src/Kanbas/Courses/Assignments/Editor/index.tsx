@@ -1,38 +1,31 @@
 import React, { useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
-
-import db from "../../../Database";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  addAssignment,
-  deleteAssignment,
   updateAssignment,
   setAssignment,
+  setAssignments
 } from "../assignmentsReducer";
 import { LabState} from "../../../store";
+import * as client from "../client";
 
 
 function AssignmentEditor() {
     
-    const { assignmentId } = useParams();
     const assignment = useSelector((state: LabState) => state.assignmentsReducer.assignment);
     const { courseId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [name, setName] = useState(assignment?.name);
-    const [description, setDescription] = useState(assignment?.description);
-    const [dueDate, setdueDate] = useState(assignment?.dueDate);
-    const [availableDate, setavailableDate] = useState(assignment?.availableDate);
-    const [untilDate, setuntilDate] = useState(assignment?.untilDate);
    
+    const handleUpdateAssignment= async () => {
+      const status = await client.updateAssignment(assignment);
+      dispatch(updateAssignment(assignment));
+      navigate(`/Kanbas/Courses/${courseId}/Assignments`);
+    };
 
     const handleSave = (e) => {
-        // console.log("Actually saving assignment TBD in later assignments");
-        //alert("Saved"+name+description+courseId);
-        //dispatch(setAssignment({ ...assignment, name: name, description: description }));
-        dispatch(updateAssignment({...assignment, name: name, description: description, 
-          dueDate: dueDate, availableDate: availableDate, untilDate: untilDate, course: courseId}))
+        dispatch(updateAssignment(assignment))
         navigate(`/Kanbas/Courses/${courseId}/Assignments`);
     };
   return (
@@ -42,14 +35,14 @@ function AssignmentEditor() {
     <div className="col-md-10">
         <label>Assignment Name</label>
           <input name="name"
-                  value={name} 
+                  value={assignment.name} 
                   className="form-control m-2"
-                  onChange={(e) => setName(e.target.value)}/>
+                  onChange={(e) => dispatch(setAssignment({ ...assignment, name: e.target.value}))}/>
         <label>Assignment Description</label>
           <textarea name="description"
-                    value={description} 
+                    value={assignment.description} 
                     className="form-control m-2"
-                    onChange={(e)=>setDescription(e.target.value)}/>
+                    onChange={(e)=>dispatch(setAssignment({ ...assignment, description: e.target.value}))}/>
 
 
     <div className="card bg-light m-2">
@@ -61,8 +54,8 @@ function AssignmentEditor() {
         </div>
         <div className="row mb-3">
            <div className="col-sm-8 offset-sm-2">
-           <input value={dueDate} className="form-control" type="date"
-             onChange={(e) =>setdueDate(e.target.value)}/>
+           <input value={assignment.dueDate} className="form-control" type="date"
+             onChange={(e) =>dispatch(setAssignment({ ...assignment, dueDate: e.target.value}))}/>
           </div>
         </div>
         <div className="row mb-3">
@@ -71,20 +64,18 @@ function AssignmentEditor() {
         </div>
         <div className="row mb-3">
           <div className="col-sm-4 offset-sm-2">
-          <input value={availableDate} className="form-control" type="date"
-             onChange={(e) =>setavailableDate(e.target.value)}/>
+          <input value={assignment.availableDate} className="form-control" type="date"
+             onChange={(e) =>dispatch(setAssignment({ ...assignment, availableDate: e.target.value}))}/>
           </div>
           <div className="col-sm-4">
-          <input value={untilDate} className="form-control" type="date"
-             onChange={(e) =>setuntilDate(e.target.value)}/>
+          <input value={assignment.untilDate} className="form-control" type="date"
+             onChange={(e) =>dispatch(setAssignment({ ...assignment, untilDate: e.target.value}))}/>
           </div>
         </div>
         </div>
 
 
-
-
-        <button onClick={handleSave} className="btn btn-danger m-2 float-end">
+        <button onClick={handleUpdateAssignment} className="btn btn-danger m-2 float-end">
              Save
         </button>
           <Link to={`/Kanbas/Courses/${courseId}/Assignments`}

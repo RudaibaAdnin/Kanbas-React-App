@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaPlus } from "react-icons/fa";
 import {
+  setAssignments,
+  setAssignment,
   addAssignment,
   deleteAssignment,
   updateAssignment,
-  setAssignment,
 } from "./assignmentsReducer";
 import "./index.css";
-import { LabState, assignmentType} from "../../store";
+import {LabState} from "../../store";
+import * as client from "./client";
 
 function Assignments() {
   const { courseId } = useParams();
@@ -19,18 +21,26 @@ function Assignments() {
 
   const [showModal, setShowModal] = useState(false);
   const [currentAssignmentId, setCurrentAssignmentId] = useState("");
-
   const handleClose = () => setShowModal(false);
-
   const handleShow = (id) => {
     setCurrentAssignmentId(id); // Set the current assignment ID before showing the modal
     setShowModal(true);
   };
-  const handleDelete = () => {
+  const handleDeleteAssignment = () => {
     console.log(currentAssignmentId);
-    dispatch(deleteAssignment(currentAssignmentId)); // Use the current assignment ID for deletion
+   // dispatch(deleteAssignment(currentAssignmentId)); // Use the current assignment ID for deletion
+    client.deleteAssignment(currentAssignmentId).then((status) => {
+      dispatch(deleteAssignment(currentAssignmentId)); });
     setShowModal(false);
   };
+
+  useEffect(() => {
+    client.findAssignmentsForCourse(courseId).then((assignments) =>
+        dispatch(setAssignments(assignments))
+    );
+  }, [courseId]);
+  
+
 
   return (
     <>
@@ -119,7 +129,7 @@ function Assignments() {
                           <button type="button" className="btn btn-secondary" onClick={handleClose}>
                             No
                           </button>
-                          <button type="button" className="btn btn-primary" onClick={handleDelete}>
+                          <button type="button" className="btn btn-primary" onClick={handleDeleteAssignment}>
                             Yes
                           </button>
                         </div>

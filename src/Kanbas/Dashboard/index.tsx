@@ -1,17 +1,38 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import db from "../Database";
-
 import { useSelector, useDispatch } from "react-redux";
 import { addCourse,   deleteCourse,
   updateCourse,
-  setCourse } from "./coursesReducer";
+  setCourse, setCourses } from "./coursesReducer";
 import { LabState } from "../store";
+import * as client from "./client";
 
-function Dashboard() {
+function Dashboard({}) {
     const courses = useSelector((state: LabState) => state.coursesReducer.courses);
     const course = useSelector((state: LabState) => state.coursesReducer.course);
     const dispatch = useDispatch();
+
+
+    const handleUpdateCourse = async () => {
+      const status = await client.updateCourse(course);
+      dispatch(updateCourse(course));
+    };
+  
+    const handleAddCourse = () => {
+      client.addCourse(course).then((course) => {dispatch(addCourse(course)); });
+    };
+  
+    const handleDeleteCourse = (courseID: string) => {
+      client.deleteCourse(courseID).then((status) => {
+        dispatch(deleteCourse(courseID));
+      });
+    };
+
+    useEffect(() => {
+      client.findAllCourses().then((courses) =>
+          dispatch(setCourses(courses))
+      );
+    }, []);
 
 
   return (
@@ -24,18 +45,18 @@ function Dashboard() {
 
       <h5>Add and Update Course</h5>
       <input value={course.name} className="form-control m-2"
-             onChange={(e) => dispatch(setCourse({ ...course, name: e.target.value })) } />
+             onChange={(e) => dispatch(setCourse({ ...course, name: e.target.value }))} />
       <input value={course.number} className="form-control m-2"
-             onChange={(e) => dispatch(setCourse({ ...course, number: e.target.value })) } />
+             onChange={(e) => dispatch(setCourse({ ...course, number: e.target.value }))} />
       <input value={course.startDate} className="form-control m-2" type="date"
-             onChange={(e) => dispatch(setCourse({ ...course, startDate: e.target.value })) }/>
+             onChange={(e) => dispatch(setCourse({ ...course, startDate: e.target.value }))}/>
       <input value={course.endDate} className="form-control m-2" type="date"
-             onChange={(e) => dispatch(setCourse({ ...course, endDate: e.target.value })) } />
+             onChange={(e) => dispatch(setCourse({ ...course, endDate: e.target.value }))} />
         <button className="btn btn-success float-end m-2"
-             onClick={() => dispatch(addCourse({ ...course, course: course._id }))}> Add </button>
+             onClick={handleAddCourse}> Add </button>
 
         <button className="btn btn-primary float-end m-2"
-              onClick={() => dispatch(updateCourse(course))}> Update </button>
+              onClick={handleUpdateCourse}> Update </button>
 
     </div>
       <br/>
@@ -50,7 +71,7 @@ function Dashboard() {
             {course.name}
             {/* {course._id} */}
             <button className="btn btn-danger float-end m-2" 
-                     onClick={(event) => { event.preventDefault(); dispatch(deleteCourse(course._id))}}>
+                     onClick={(event) => { event.preventDefault(); handleDeleteCourse(course._id)}}>
                 Delete
             </button>
             <button className="btn btn-warning float-end m-2"

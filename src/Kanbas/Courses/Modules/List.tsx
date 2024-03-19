@@ -1,54 +1,39 @@
 import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaPlus } from "react-icons/fa";
 import "./index.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import db from "../../Database";
+//import db from "../../Database";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  addModule,
-  deleteModule,
-  updateModule,
-  setModule,
-} from "./modulesReducer";
+import { setModules, setModule, addModule, deleteModule, updateModule} from "./modulesReducer";
 import { LabState} from "../../store";
+import * as client from "./client";
 
 function ModuleList() {
-  const { courseId } = useParams();
+  const {courseId } = useParams();
   const modules = useSelector((state: LabState) => state.modulesReducer.modules);
   const module = useSelector((state: LabState) => state.modulesReducer.module);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    client.findModulesForCourse(courseId).then((modules) =>
+        dispatch(setModules(modules))
+    );
+  }, [courseId]);
 
-  //** */
-  //const [modules, setModules] = useState(db.modules);
-  // const [module, setModule] = useState({
-  //   _id: "0",
-  //   name: "New Module",
-  //   description: "New Description",
-  //   course: "random"
-  // });
-  // const addModule = (module) => {
-  //   setModules([...modules,{ ...module, _id: new Date().getTime().toString(), course: courseId }]);
-  // };
+  const handleUpdateModule = async () => {
+    const status = await client.updateModule(module);
+    dispatch(updateModule(module));
+  };
 
-  // const deleteModule = (moduleId: string) => {
-  //   setModules(modules.filter(
-  //     (module) => module._id !== moduleId));
-  // };
+  const handleAddModule = () => {
+    client.createModule(courseId, module).then((module) => {dispatch(addModule(module)); });
+  };
 
-  // const updateModule = () => {
-  //   setModules(
-  //     modules.map((m) => {
-  //       if (m._id === module._id) {
-  //         return module;
-  //       } else {
-  //         return m;
-  //       }
-  //     })
-  //   );
-  // };
-
-
+  const handleDeleteModule = (moduleId: string) => {
+    client.deleteModule(moduleId).then((status) => {
+      dispatch(deleteModule(moduleId));
+    });
+  };
 
 
   return (
@@ -74,19 +59,19 @@ function ModuleList() {
       <div className="col-md-11">
         <input value={module.name} 
                 className="form-control ms-4 m-2"
-                onChange={(e) => dispatch(setModule({ ...module, name: e.target.value }))}/>
+                onChange={(e) => dispatch(setModule({ ...module, name: e.target.value}))}/>
         <textarea value={module.description} 
                   className="form-control ms-4 m-2"
-                  onChange={(e) => dispatch(setModule({ ...module, description: e.target.value }))}/>
-        
+                  onChange={(e) => dispatch(setModule({ ...module, description: e.target.value}))}/>
+         
         <button className="btn btn-success float-end m-2"
-                onClick={() => dispatch(addModule({ ...module, course: courseId }))}> 
+                onClick={handleAddModule}> 
                 Add 
         </button>
-        <button className="btn btn-primary float-end m-2"
-                onClick={() => dispatch(updateModule(module))}> 
+       <button className="btn btn-primary float-end m-2"
+                onClick={handleUpdateModule}> 
                 Update 
-        </button>
+        </button> 
 
 
       </div>
@@ -113,9 +98,9 @@ function ModuleList() {
                 </button>
 
                 <button className="btn btn-danger m-2"
-                  onClick={() => {dispatch(deleteModule(module._id))}}> 
+                  onClick={() => handleDeleteModule(module._id)}> 
                   Delete
-                </button>
+                </button> 
           
                 <FaCheckCircle className="text-success" />
                 <FaPlusCircle className="ms-2" />

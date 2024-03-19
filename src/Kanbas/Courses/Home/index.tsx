@@ -1,4 +1,4 @@
-import { courses, assignments, enrollments, grades, users } from "../../Database";
+//import { courses, assignments, enrollments, grades, users } from "../../Database";
 import ModuleList from "../Modules/List";
 import { FaCheck, FaThList, FaCheckCircle, FaEllipsisV, FaPlusCircle } from "react-icons/fa";
 import { HiMiniBars3 } from "react-icons/hi2";
@@ -6,7 +6,7 @@ import { useParams } from "react-router";
 
 function Home() {
   const { courseId } = useParams();
-  const course = courses.find((course) => course._id === courseId);
+  //const course = courses.find((course) => course._id === courseId);
 
   return (
     <div>

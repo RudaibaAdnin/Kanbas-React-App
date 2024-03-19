@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
-import db from "../Database";
 
 
 const initialState = {
-  courses: db.courses,
+  courses: [{ name: "New Course Name", number: "New Course Number",
+  startDate: "2023-09-10", endDate: "2023-12-15", _id: new Date().getTime().toString() }],
   course: { name: "New Course Name", number: "New Course Number",
-  startDate: "2023-09-10", endDate: "2023-12-15", _id: "0" },
+  startDate: "2023-09-10", endDate: "2023-12-15", _id: new Date().getTime().toString() },
 };
 
 
@@ -13,11 +13,11 @@ const coursesSlice = createSlice({
   name: "courses",
   initialState,
   reducers: {
+    setCourses: (state, action) => {
+      state.courses = action.payload;
+    },
     addCourse: (state, action) => {
-      state.courses = [
-        { ...action.payload, _id: new Date().getTime().toString() },
-          ...state.courses,
-      ];
+      state.courses = [...state.courses, { ...action.payload, _id: new Date().getTime().toString() }];
     },
     deleteCourse: (state, action) => {
       state.courses = state.courses.filter(
@@ -40,6 +40,6 @@ const coursesSlice = createSlice({
 });
 
 
-export const { addCourse, deleteCourse,
-  updateCourse, setCourse } = coursesSlice.actions;
+export const { setCourse, setCourses, addCourse, deleteCourse,
+  updateCourse } = coursesSlice.actions;
 export default coursesSlice.reducer;
