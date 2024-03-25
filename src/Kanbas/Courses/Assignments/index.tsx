@@ -19,6 +19,8 @@ function Assignments() {
   const assignment = useSelector((state: LabState) => state.assignmentsReducer.assignment);
   const dispatch = useDispatch();
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const [showModal, setShowModal] = useState(false);
   const [currentAssignmentId, setCurrentAssignmentId] = useState("");
   const handleClose = () => setShowModal(false);
@@ -47,11 +49,13 @@ function Assignments() {
     <div className="row mt-5 m-3">
       <h2>Assignments</h2>
         <div className="col-6">
-            <input type="text" className="form-control w-20 p-2" placeholder="Search for Assignments"/>
+            <input type="text" className="form-control w-20 p-2" placeholder="Search for Assignments" 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}/>
         </div>
       <div className="col float-end">
         <span className="float-end">
-            <button type="button" className="btn btn-light border border-dark me-1"><FaPlus/>Group</button>
+            {/* <button type="button" className="btn btn-light border border-dark me-1"><FaPlus/>Group</button> */}
             <Link to={`/Kanbas/Courses/${courseId}/Assignments/add`} 
                 onClick={() => dispatch(setAssignment({...assignment, _id: new Date().getTime().toString(), 
                 name: "New Assignment 123", description: "New Description",  course: courseId, 
@@ -87,9 +91,11 @@ function Assignments() {
             </span>
       </div>
            <ul className="list-group wd-green">
-          {assignments
-            .filter((assignment) => assignment.course === courseId)
-            .map((assignment) => (
+          {//assignments.filter((assignment) => assignment.course === courseId)
+           // .map((assignment) => (
+
+          assignments.filter((assignment) => assignment.course === courseId && assignment.name.toLowerCase().includes(searchTerm.toLowerCase()))
+          .map((assignment) => (
               <li key={assignment._id} className="list-group-item wd-li-ul-li">
                 <div>
                   <FaEllipsisV className="me-2" />

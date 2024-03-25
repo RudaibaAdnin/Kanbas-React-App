@@ -14,6 +14,8 @@ function ModuleList() {
   const module = useSelector((state: LabState) => state.modulesReducer.module);
   const dispatch = useDispatch();
 
+  //const [searchTerm, setSearchTerm] = useState("");
+
   useEffect(() => {
     client.findModulesForCourse(courseId).then((modules) =>
         dispatch(setModules(modules))
@@ -43,7 +45,7 @@ function ModuleList() {
   <div className="flex-fill">
       <hr/>
       <h2>Modules</h2>
-      <span className="float-end">
+      {/* <span className="float-end">
       <button type="button" className="btn btn-light border border-dark m-1"> Collapse All</button>
       <button type="button" className="btn btn-light border border-dark m-1"> View Progress</button>
       <select className="btn btn-light border border-dark">
@@ -52,9 +54,8 @@ function ModuleList() {
           <option>Unpublish</option>
       </select>
       <button type="button" className="btn btn-danger m-1"><FaPlus/> Module</button>
-      </span>
-
-       <br/>  <br/>  
+      </span> */}
+ 
       <hr/>
       <div className="col-md-11">
         <input value={module.name} 
@@ -73,15 +74,28 @@ function ModuleList() {
                 Update 
         </button> 
 
-
       </div>
 
       <br/>
       <br/>
+      {/* <br/>
+      <br/> */}
 
-      {modules
-        .filter((module) => module.course === courseId)
-        .map((module, index) => (
+      {/* <div className="col-md-11">
+          <input
+            type="text"
+            placeholder="Search Modules"
+            className="form-control ms-4 m-2"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
+        </div> */}
+
+        <br/>
+        <br/>
+      {modules.filter((module) => module.course === courseId).map((module, index) => (
+        // modules.filter((module) => module.course === courseId && module.name.toLowerCase().includes(searchTerm.toLowerCase()))
+        //   .map((module, index) => (
         <ul className="list-group m-4">
           <li key={index} className="list-group-item wd-li p-2">
             <div>

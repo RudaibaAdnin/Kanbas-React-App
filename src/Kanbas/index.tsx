@@ -2,7 +2,7 @@ import KanbasNavigation from "./Navigation";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import Courses from "./Courses";
-import YouTubeSearch from "./YouTube";
+import YouTubePage from "./YouTube";
 import store from "./store";
 import { Provider } from "react-redux";
 
@@ -21,7 +21,8 @@ function Kanbas() {
                         <Dashboard/>} />
                    <Route path="Courses/:courseId/*" element= <Courses /> />
                    <Route path="YouTube" element={
-                        <YouTubeSearch/>} />
+                        <YouTubePage/>} />
+
                </Routes>
                </div>
          </div>
