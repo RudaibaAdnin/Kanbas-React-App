@@ -26,7 +26,7 @@ export default function UserProfile() {
 
   useEffect(() => {
     fetchProfile();
-  });
+  }, []);
 
 
   return (
