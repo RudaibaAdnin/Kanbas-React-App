@@ -12,7 +12,7 @@ export default function Account() {
         <Route path="/Signin" element={<Signin />} />
         <Route path="/Signup" element={<Signup/>} />
          <Route path="/:id" element={<UserProfile />} />
-        <Route path="/Profile" element={<Profile />} />
+        <Route path="/Profile/:id" element={<Profile />} />
         <Route path="/Admin/Users" element={<UserTable />} />
       </Routes>
     </div>

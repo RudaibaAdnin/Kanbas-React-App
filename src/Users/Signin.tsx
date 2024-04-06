@@ -13,8 +13,8 @@ export default function Signin() {
   const signin = async () => {
     const newuser=await client.signin(credentials);
     setUser(newuser);
-    // navigate(`/Kanbas/Account/${newuser._id}`);
-    navigate(`/Kanbas/Account/Profile`);
+    navigate(`/Kanbas/Account/Profile/${newuser._id}`);
+    //navigate(`/Kanbas/Account/Profile`);
   };
 
 

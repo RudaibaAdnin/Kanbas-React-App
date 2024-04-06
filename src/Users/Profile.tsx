@@ -10,8 +10,8 @@ export default function Profile() {
     firstName: "", lastName: "", dob: "", email: "", role: "USER" });
   const navigate = useNavigate();
   const fetchProfile = async () => {
-    const account = await client.profile();
-   //const account = await client.findUserById(id);
+    //const account = await client.profile();
+    const account = await client.findUserById(id);
     setProfile(account);
   };
 
