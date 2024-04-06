@@ -1,4 +1,4 @@
-import { FaEllipsisV, FaCheckCircle, FaPlusCircle, FaPlus } from "react-icons/fa";
+import { FaEllipsisV, FaCheckCircle, FaPlusCircle } from "react-icons/fa";
 import "./index.css";
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -7,14 +7,16 @@ import { useSelector, useDispatch } from "react-redux";
 import { setModules, setModule, addModule, deleteModule, updateModule} from "./modulesReducer";
 import { LabState} from "../../store";
 import * as client from "./client";
+import { useNavigate } from 'react-router-dom';
 
 function ModuleList() {
   const {courseId } = useParams();
   const modules = useSelector((state: LabState) => state.modulesReducer.modules);
   const module = useSelector((state: LabState) => state.modulesReducer.module);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  //const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     client.findModulesForCourse(courseId).then((modules) =>
@@ -29,6 +31,7 @@ function ModuleList() {
 
   const handleAddModule = () => {
     client.createModule(courseId, module).then((module) => {dispatch(addModule(module)); });
+    navigate(0);
   };
 
   const handleDeleteModule = (moduleId: string) => {
@@ -78,10 +81,10 @@ function ModuleList() {
 
       <br/>
       <br/>
-      {/* <br/>
-      <br/> */}
+      <br/>
+      <br/> 
 
-      {/* <div className="col-md-11">
+       <div className="col-md-11">
           <input
             type="text"
             placeholder="Search Modules"
@@ -89,13 +92,13 @@ function ModuleList() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div> */}
+        </div>
 
         <br/>
         <br/>
-      {modules.filter((module) => module.course === courseId).map((module, index) => (
-        // modules.filter((module) => module.course === courseId && module.name.toLowerCase().includes(searchTerm.toLowerCase()))
-        //   .map((module, index) => (
+      {//modules.filter((module) => module.course === courseId).map((module, index) => (
+         modules.filter((module) => module.course === courseId && module.name.toLowerCase().includes(searchTerm.toLowerCase()))
+         .map((module, index) => (
         <ul className="list-group m-4">
           <li key={index} className="list-group-item wd-li p-2">
             <div>

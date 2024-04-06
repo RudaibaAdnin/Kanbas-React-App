@@ -66,6 +66,8 @@ export type moduleType = {
     number: string;
     startDate: string;
     endDate: string;
+    description: string, 
+    author: string
   };
 
 export interface LabState {

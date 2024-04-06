@@ -13,28 +13,28 @@ function Dashboard({}) {
     const dispatch = useDispatch();
 
     const [searchTerm, setSearchTerm] = useState("");
-    const [filteredCourses, setFilteredCourses] = useState(courses);
+   // const [filteredCourses, setFilteredCourses] = useState(courses);
 
     const handleUpdateCourse = async () => {
       const status = await client.updateCourse(course);
       dispatch(updateCourse(course));
     };
   
-    const handleAddCourse = () => {
-      client.addCourse(course).then((course) => {dispatch(addCourse(course)); });
+    const handleAddCourse = async () => {
+      const status = await client.addCourse(course);
+      dispatch(addCourse(course)); 
     };
   
-    const handleDeleteCourse = (courseID: string) => {
-      client.deleteCourse(courseID).then((status) => {
+    const handleDeleteCourse = async (courseID: string) => {
+       const status = await client.deleteCourse(courseID);
         dispatch(deleteCourse(courseID));
-      });
     };
 
-    const handleSearch = () => {
-      const term = searchTerm.toLowerCase();
-      const filtered = courses.filter((course) => course.name.toLowerCase().includes(term));
-      setFilteredCourses(filtered);
-    };
+    // const handleSearch = () => {
+    //   const term = searchTerm.toLowerCase();
+    //   const filtered = courses.filter((course) => course.name.toLowerCase().includes(term));
+    //   //setFilteredCourses(filtered);
+    // };
 
     useEffect(() => {
       client.findAllCourses().then((courses) =>
@@ -50,15 +50,14 @@ function Dashboard({}) {
       <br/><h3>Course</h3><br/>
 
 
-      {/* <div className="col-md-8 ms-4">
+       <div className="col-md-8 ms-4">
             <input type="text" className="form-control w-20 p-2" placeholder="Search for Courses" 
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}/>
-             <button className="btn btn-primary float-end m-2" onClick={handleSearch}>Search</button>
       </div>
 
       <br/>
-      <br/> */}
+      <br/> 
 
 
       <div className="col-md-8 ms-4">
@@ -84,10 +83,9 @@ function Dashboard({}) {
       <br/>
       <div className="list-group col-md-8 m-4 mt-4 ms-4">
         <h5>Existing Courses</h5>
-        {courses.map((course) => (
-         // courses.filter((course) =>  course.name.toLowerCase().includes(searchTerm.toLowerCase()))
-       //  .map((course) => (
-         // filteredCourses.map((course) => (
+        {//courses.map((course) => (
+         courses.filter((course) =>  course.name.toLowerCase().includes(searchTerm.toLowerCase())).map((course) => (
+         //filteredCourses.map((course) => (
           <Link key={course._id}
                 to={`/Kanbas/Courses/${course._id}`}
                 className="list-group-item">

@@ -2,9 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 
 const initialState = {
-  courses: [{ name: "New Course Name", number: "New Course Number",
+  courses: [{ name: "New Course Name", description: "", author: "", number: "New Course Number",
   startDate: "2023-09-10", endDate: "2023-12-15", _id: new Date().getTime().toString() }],
-  course: { name: "New Course Name", number: "New Course Number",
+  course: { name: "New Course Name", description: "", author: "", number: "New Course Number",
   startDate: "2023-09-10", endDate: "2023-12-15", _id: new Date().getTime().toString() },
 };
 
