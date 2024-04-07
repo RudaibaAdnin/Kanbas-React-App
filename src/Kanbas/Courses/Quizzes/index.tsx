@@ -109,6 +109,12 @@ function Quizzes() {
                     >
                       {quiz.publish === "yes" ? "Unpublish" : "Publish"}
                    </button>
+
+                   <Link
+                     to={`/Kanbas/Courses/${courseId}/Quizzes/Details/${quiz._id}`} 
+                      onClick={() => dispatch(setQuiz(quiz))}>
+                      <button className="btn btn-info m-2">Details</button>
+                    </Link>
                     <Link
                      to={`/Kanbas/Courses/${courseId}/Quizzes/${quiz._id}`} 
                       onClick={() => dispatch(setQuiz(quiz))}>

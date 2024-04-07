@@ -11,6 +11,7 @@ import AssignmentEditor from "./Assignments/Editor";
 import QuizEditor from "./Quizzes/Editor";
 import QuestionEditor from "./Quizzes/Editor/Questions";
 import Preview from "./Quizzes/Editor/preview";
+import QuizDetail from "./Quizzes/Editor/detail";
 import Grades from "./Grades";
 import Quizzes from "./Quizzes";
 import { Link, useLocation } from "react-router-dom";
@@ -50,6 +51,7 @@ function Courses() {
             <Route path="Assignments/:assignmentId" element={<AssignmentEditor/>} />
             <Route path="Quizzes" element={<Quizzes/>} />
             <Route path="Quizzes/:quizId" element={<QuizEditor/>} />
+            <Route path="Quizzes/Details/:quizId" element={<QuizDetail/>} />
             <Route path="Quizzes/:quizId/Questions/:questionId" element={<QuestionEditor/>} />
             <Route path="Quizzes/:quizId/Preview" element={<Preview/>} />
           </Routes>
