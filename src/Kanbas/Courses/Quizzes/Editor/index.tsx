@@ -20,7 +20,7 @@ function QuizEditor() {
     const question = useSelector((state: LabState) => state.questionsReducer.question);
     const questions = useSelector((state: LabState) => state.questionsReducer.questions);
     const { courseId } = useParams();
-    const {quizId} = useParams();
+    const { quizId } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -31,15 +31,27 @@ function QuizEditor() {
       navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
     };
 
-    const handleSave = (e) => {
+    const handleSaveQuiz = async () => {
+      if (quizId === "add") {
+        // Create a new quiz
+        const newQuiz = await client.createQuiz(courseId, quiz);
+        dispatch(setQuiz(newQuiz)); // Assuming you have an action to set a single quiz
+      } else {
+        // Update existing quiz
+        await client.updateQuiz(quiz);
+        dispatch(updateQuiz(quiz));
+      }
+      navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
+    };
 
+    const handleSave = (e) => {
         dispatch(updateQuiz(quiz))
         navigate(`/Kanbas/Courses/${courseId}/Quizzes`);
     };
 
     const handleDelete = (questionId: string) => {
-      clientQuestion.deleteQuestion(questionId).then((status) => {
-      dispatch(deleteQuestion(questionId)); });
+      clientQuestion.deleteQuestion(questionId);
+      dispatch(deleteQuestion(questionId));
     };
 
     useEffect(() => {
@@ -94,8 +106,7 @@ function QuizEditor() {
 <br/>
 <br/>
 <ul className="list-group wd-green">
-          { questions.filter((question) => question.course === courseId && question.quiz ===quizId )
-          .map((question) => (
+          { questions.map((question) => (
               <li key={question._id} className="list-group-item wd-li-ul-li">
                 <div>
                   <FaEllipsisV className="me-2" />
@@ -258,7 +269,7 @@ function QuizEditor() {
         </div>
 
 
-        <button onClick={handleUpdateQuiz} className="btn btn-danger m-2 float-end">
+        <button onClick={handleSaveQuiz} className="btn btn-danger m-2 float-end">
              Save
         </button>
           <Link to={`/Kanbas/Courses/${courseId}/Quizzes`}

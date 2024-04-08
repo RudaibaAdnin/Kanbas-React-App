@@ -99,8 +99,8 @@ function Preview() {
             <ul className="list-group">
                 {questions.map((question) => (
                     <li key={question._id} className="list-group-item">
-                        <h5>{question.name}</h5>
-                        <p className="text-muted">{question.description}</p>
+                        <p className="text-muted">{question.name}</p>
+                        <h5>{question.description}</h5>
                         {renderQuestionTypeInputs(question)}
                     </li>
                 ))}

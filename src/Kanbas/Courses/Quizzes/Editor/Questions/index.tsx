@@ -25,6 +25,25 @@ function QuestionEditor() {
       navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`);
   };
 
+
+  const handleSaveQuestion = async () => {
+    if (questionId === "add") {
+      // Create a new quiz
+      const updatedOptions = blanks.map(blank => blank.answer).join(',');
+      const updatedQuestion = { ...question, options: updatedOptions, correctAnswer: correctAnswer };
+      const newQuiz = await client.createQuestion(courseId, quizId, updatedQuestion);
+      dispatch(setQuestion(newQuiz)); // Assuming you have an action to set a single quiz
+    } else {
+      // Update existing quiz
+      const updatedOptions = blanks.map(blank => blank.answer).join(',');
+      const updatedQuestion = { ...question, options: updatedOptions, correctAnswer: correctAnswer };
+      await client.updateQuestion(updatedQuestion);
+      dispatch(updateQuestion(question));
+    }
+    navigate(`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`);
+  };
+
+  
   const addBlank = () => {
     setBlanks([...blanks, { id: Date.now(), answer: '' }]);
   };
@@ -192,7 +211,7 @@ function QuestionEditor() {
             <br/>
             <br/>
             <br/>
-            <button onClick={handleUpdateQuestion} className="btn btn-danger m-2 float-end">
+            <button onClick={handleSaveQuestion} className="btn btn-danger m-2 float-end">
                 Save
             </button>
             <Link to={`/Kanbas/Courses/${courseId}/Quizzes/${quizId}`} className="btn btn-primary m-2 float-end">
