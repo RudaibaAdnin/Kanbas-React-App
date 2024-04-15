@@ -30,14 +30,14 @@ function ModuleList() {
   };
 
   const handleAddModule = () => {
-    client.createModule(courseId, module).then((module) => {dispatch(addModule(module)); });
+    client.createModule(courseId, module);
+    dispatch(addModule(module));
     navigate(0);
   };
 
   const handleDeleteModule = (moduleId: string) => {
-    client.deleteModule(moduleId).then((status) => {
+      client.deleteModule(moduleId);
       dispatch(deleteModule(moduleId));
-    });
   };
 
 
